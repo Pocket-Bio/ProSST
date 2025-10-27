@@ -1,4 +1,12 @@
 # Venus-ProSST
+
+Fork of the Venus-ProSST structure module code as a python package
+
+```
+pip install git+https://github.com/Pocket-Bio/ProSST.git
+```
+
+---
 Code for _ProSST: A Pre-trained Protein Sequence and Structure Transformer with Disentangled Attention._ (NeurIPS 2024)
 
 ## News
