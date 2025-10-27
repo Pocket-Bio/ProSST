@@ -3,7 +3,7 @@ name = "prosst"
 version = "0.1.0"
 description = "Packaged ProSST (not official)"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 dependencies = [
     "biopython>=1.83",
     "biotite>=0.39.0",
@@ -17,8 +17,13 @@ dependencies = [
     "tqdm>=4.67.1",
 ]
 
-
 [build-system]
-requires = ["hatchling", "torch"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.uv.sources]
+torch-scatter = [
+    { url = "https://data.pyg.org/whl/torch-2.8.0%2Bcpu/torch_scatter-2.1.2-cp311-cp311-macosx_10_9_universal2.whl", marker = "sys_platform != 'linux'" },
+    { url = "https://data.pyg.org/whl/torch-2.8.0%2Bcu128/torch_scatter-2.1.2%2Bpt28cu128-cp311-cp311-linux_x86_64.whl", marker = "sys_platform == 'linux'" },
+]
 
