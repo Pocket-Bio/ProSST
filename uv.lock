@@ -574,13 +574,12 @@ dependencies = [
     { name = "torch-geometric" },
     { name = "torch-scatter", version = "2.1.2", source = { url = "https://data.pyg.org/whl/torch-2.8.0%2Bcpu/torch_scatter-2.1.2-cp311-cp311-macosx_10_9_universal2.whl" }, marker = "sys_platform != 'linux'" },
     { name = "torch-scatter", version = "2.1.2+pt28cu128", source = { url = "https://data.pyg.org/whl/torch-2.8.0%2Bcu128/torch_scatter-2.1.2%2Bpt28cu128-cp311-cp311-linux_x86_64.whl" }, marker = "sys_platform == 'linux'" },
-    { name = "tqdm" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "biopython", specifier = ">=1.83" },
-    { name = "biotite", specifier = ">=0.39.0" },
+    { name = "biotite", specifier = "==0.39.0" },
     { name = "joblib", specifier = ">=1.3.2" },
     { name = "numpy", specifier = ">=2.3.4" },
     { name = "pandas", specifier = ">=2.3.2" },
@@ -589,7 +588,6 @@ requires-dist = [
     { name = "torch-geometric", specifier = ">=2.5.0" },
     { name = "torch-scatter", marker = "sys_platform != 'linux'", url = "https://data.pyg.org/whl/torch-2.8.0%2Bcpu/torch_scatter-2.1.2-cp311-cp311-macosx_10_9_universal2.whl" },
     { name = "torch-scatter", marker = "sys_platform == 'linux'", url = "https://data.pyg.org/whl/torch-2.8.0%2Bcu128/torch_scatter-2.1.2%2Bpt28cu128-cp311-cp311-linux_x86_64.whl" },
-    { name = "tqdm", specifier = ">=4.67.1" },
 ]
 
 [[package]]
