@@ -89,20 +89,38 @@ wheels = [
 
 [[package]]
 name = "biotite"
-version = "0.39.0"
+version = "1.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "biotraj" },
     { name = "msgpack" },
     { name = "networkx" },
     { name = "numpy" },
+    { name = "packaging" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/34/40/5295d7e2f182dfb5236b20f74cfce3eabf9c0a2613b4a63d5409d5f03efd/biotite-0.39.0.tar.gz", hash = "sha256:9fa8b02e72f3ca47af39befad6e18a53ed7ede653298936e3d359dba03d85e13", size = 33164318 }
+sdist = { url = "https://files.pythonhosted.org/packages/fa/06/54bda971240c4e9b1b535cab6cfcba28b9b3ce244f61b7788ad1424e7a18/biotite-1.5.0.tar.gz", hash = "sha256:b5b509cbf2a9f2658a758a794d4664536dead47c681e649f5502d62733cd0040", size = 37808654 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/80/0f/50bf10819d4b8913cf21a16e6db3855a4cafec446fa4245cef308c17f655/biotite-0.39.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:18baabe424c34106fb6da7e9036a2bc72067745cd5a5fc13393cb21cc18f4552", size = 37255864 },
-    { url = "https://files.pythonhosted.org/packages/a9/85/8bf4e394dec38ed224c8e8cb9708d20570e5813f3e45667274b9dc784407/biotite-0.39.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:72ff0921e882be410ffa1aa5919080069164aa9bbe3ffba0a612b5aab961690d", size = 36888255 },
-    { url = "https://files.pythonhosted.org/packages/ab/26/1b573906df7bdcb520fb689fd4beb64f5b3f4e746f36ff9ffaa052d362db/biotite-0.39.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e5208242838f7c5218423e9578c61cf2d2c3530ff465ec6352786297023e5e61", size = 54309118 },
-    { url = "https://files.pythonhosted.org/packages/5d/84/80a141dcf6997fd471012b767d53959ba2a37512840342e218993263f455/biotite-0.39.0-cp311-cp311-win_amd64.whl", hash = "sha256:6da2300d214bb60576db4e5b6773eea1511b3c735b2708f896f6604e5f34f540", size = 36541517 },
+    { url = "https://files.pythonhosted.org/packages/af/36/86c68a998336c585fc76d19cfd79518295e3f6ddece59de40d0914221487/biotite-1.5.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:af0008e78890218d38b96c68c9e62d6d52de9340451d15c99e4acae4b319051f", size = 41169237 },
+    { url = "https://files.pythonhosted.org/packages/c5/7b/01ebced65df17821cff0f11902a0d2e0581ca64e531f89eff735ec6bac0a/biotite-1.5.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:08397a8d5f506465f2b5f93f34b45274bc338efdf157c6283d72c6c6641ec9dc", size = 41043888 },
+    { url = "https://files.pythonhosted.org/packages/75/de/e8d669683bd3dd1adc872e4d013c8c92e25f6d33728685a9b4769d0b4bad/biotite-1.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b57ea328f87c8b1109d182c34baab3db0f88e975b66d9e4d9b711af6acb1f483", size = 55796641 },
+    { url = "https://files.pythonhosted.org/packages/53/03/d2e2d911d3d92e085f536f374e0585532d44b478e512f51213cc652302be/biotite-1.5.0-cp311-cp311-win_amd64.whl", hash = "sha256:c751a7c490ced3572dab8377715d944b348de2f613d552ff652599903466c459", size = 40658246 },
+]
+
+[[package]]
+name = "biotraj"
+version = "1.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/07/21/2287edfd0d2569639eea706e25c39e63b46a384cf1712db8ea05768317b0/biotraj-1.2.2.tar.gz", hash = "sha256:4bcba92101ed50f369cc1487fb5dfcfe1d8402ad47adaa9232b080553271663a", size = 3909030 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/dd/4e257a394e4a686a5973d6238bc5fb6fa321423c9401e278a34c51a01425/biotraj-1.2.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:8dc790c95f90760d08986c896783f3531cfd5feb3bd8496f07949ccccd8eafb3", size = 863170 },
+    { url = "https://files.pythonhosted.org/packages/a0/3e/90d2c50912df949c5731c564f5c7bf853378d7f2d31f276dd31eb42fb663/biotraj-1.2.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:39d1ce8d7c7e55c87bf35248c20f4d7ed09349b99ee090e61068c9c08d32b179", size = 835504 },
+    { url = "https://files.pythonhosted.org/packages/b5/86/d24589c5f8f6ef4685e6a8c8a670a9be17657677f793b48e19520ed08209/biotraj-1.2.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0accd626b3cb6b29fb4491d593c41daa694edddde8e8dc113228b1969a30c9f6", size = 2246778 },
+    { url = "https://files.pythonhosted.org/packages/3a/78/3cd3ca90490ff5730fffed57464c104a146a0c35280fc4bea2bfafb72b48/biotraj-1.2.2-cp311-cp311-win_amd64.whl", hash = "sha256:8fb09bf6f7cd44c9356880166e45fe1606b05113b4642b99f8b85c25f51699ba", size = 366212 },
 ]
 
 [[package]]
@@ -482,6 +500,15 @@ wheels = [
 ]
 
 [[package]]
+name = "packaging"
+version = "25.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a1/d4/1fc4078c65507b51b96ca8f8c3ba19e6a61c8253c72794544580a7b6c24d/packaging-25.0.tar.gz", hash = "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f", size = 165727 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl", hash = "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484", size = 66469 },
+]
+
+[[package]]
 name = "pandas"
 version = "2.3.3"
 source = { registry = "https://pypi.org/simple" }
@@ -579,7 +606,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "biopython", specifier = ">=1.83" },
-    { name = "biotite", specifier = "==0.39.0" },
+    { name = "biotite", specifier = ">=1.5.0" },
     { name = "joblib", specifier = ">=1.3.2" },
     { name = "numpy", specifier = ">=2.3.4" },
     { name = "pandas", specifier = ">=2.3.2" },

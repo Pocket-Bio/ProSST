@@ -6,7 +6,7 @@ import numpy as np
 import torch
 import torch.utils.data as data
 from biotite.sequence import ProteinSequence
-from biotite.structure import filter_backbone, get_chains
+from biotite.structure import filter_peptide_backbone, get_chains
 from biotite.structure.io import pdb, pdbx
 from biotite.structure.residues import get_residues
 from torch_geometric.data import Batch, Data
@@ -28,7 +28,7 @@ def load_structure(fpath, chain=None):
         with open(fpath) as fin:
             pdbf = pdb.PDBFile.read(fin)
         structure = pdb.get_structure(pdbf, model=1)
-    bbmask = filter_backbone(structure)
+    bbmask = filter_peptide_backbone(structure)
     structure = structure[bbmask]
     all_chains = get_chains(structure)
     if len(all_chains) == 0:
