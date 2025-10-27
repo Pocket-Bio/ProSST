@@ -1,6 +1,6 @@
 [project]
 name = "prosst"
-version = "0.1.0"
+version = "0.2.0"
 description = "Packaged ProSST (not official)"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
