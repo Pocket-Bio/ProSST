@@ -50,7 +50,7 @@ def predict_sturcture(model, cluster_models, dataloader, device):
         cluster_model_name = cluster_model_path.split("/")[-1].split(".")[0]
         struc_label_dict[cluster_model_name] = []
         cluster_model_dict[cluster_model_name] = joblib.load(cluster_model_path)
-
+    embeddings = []
     with torch.no_grad():
         for batch in epoch_iterator:
             batch.to(device)
@@ -60,13 +60,14 @@ def predict_sturcture(model, cluster_models, dataloader, device):
             node_emebddings = model.get_embedding(h_V, batch.edge_index, h_E)
             graph_emebddings = scatter_mean(node_emebddings, batch.batch, dim=0).cpu()
             norm_graph_emebddings = F.normalize(graph_emebddings, p=2, dim=1)
+            embeddings.append(norm_graph_emebddings)
             for name, cluster_model in cluster_model_dict.items():
                 batch_structure_labels = cluster_model.predict(
                     norm_graph_emebddings
                 ).tolist()
                 struc_label_dict[name].extend(batch_structure_labels)
 
-    return struc_label_dict
+    return struc_label_dict, embeddings
 
 
 def get_embeds(model, dataloader, device, pooling="mean"):
@@ -461,7 +462,7 @@ class SSTPredictor:
             cache_subgraph_dir,
         )
 
-        structures = predict_sturcture(
+        structures, embeddings = predict_sturcture(
             self.model, self.cluster_models, data_loader, self.device
         )
 
@@ -472,7 +473,7 @@ class SSTPredictor:
                 result[f"{cluster_name}_sst_seq"] = structure_labels[start:end]
             start = end
 
-        return results
+        return results, embeddings
 
     def predict_from_graph(self, graph_dir, cache_subgraph_dir=None):
         """Predict structure from pre-built graph files.
