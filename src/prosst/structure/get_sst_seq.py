@@ -110,13 +110,14 @@ def subgraph_conventer(subgraph_dir, pdb_dir, max_batch_nodes, num_processes=12)
         result_dict["aa_seq"] = aa_seq
         return result_dict, len(aa_seq)
 
-    for result in tqdm(
-        iter_threading_map(process_subgraph_file, subgraph_files, num_processes),
-        total=len(subgraph_files),
-    ):
-        result_dict, node_count = result
-        results.append(result_dict)
-        node_counts.append(node_count)
+    with ThreadPool(num_processes) as pool:
+        for result in tqdm(
+            pool.imap(process_subgraph_file, subgraph_files),
+            total=len(subgraph_files),
+        ):
+            result_dict, node_count = result
+            results.append(result_dict)
+            node_counts.append(node_count)
 
     def collate_fn(batch):
         # TODO: speed up
@@ -177,12 +178,13 @@ def graph_conventer(
             return anchor_node, subgraph
 
         # results = [process_subgraph(anchor_node) for anchor_node in anchor_nodes]
-        for result in tqdm(
-            iter_threading_map(process_subgraph, anchor_nodes, num_threads),
-            total=len(anchor_nodes),
-        ):
-            anchor, subgraph = result
-            subgraph_dict[anchor] = subgraph
+        with ThreadPool(num_threads) as pool:
+            for result in tqdm(
+                pool.imap(process_subgraph, anchor_nodes),
+                total=len(anchor_nodes),
+            ):
+                anchor, subgraph = result
+                subgraph_dict[anchor] = subgraph
 
         subgraph_dict = dict(sorted(subgraph_dict.items(), key=lambda x: x[0]))
         if cache_subgraph_dir:
@@ -198,14 +200,15 @@ def graph_conventer(
     def handle_grpaph_file(graph_file):
         return process_graph_file(graph_file, subgraph_depth, max_distance)
 
-    for result in tqdm(
-        iter_parallel_map(handle_grpaph_file, graph_files, num_processes),
-        total=len(graph_files),
-    ):
-        pdb_subgraphs, result_dict, node_count = result
-        dataset.append(pdb_subgraphs)
-        results.append(result_dict)
-        node_counts.append(node_count)
+    with Pool(num_processes) as pool:
+        for result in tqdm(
+            pool.imap(handle_grpaph_file, graph_files),
+            total=len(graph_files),
+        ):
+            pdb_subgraphs, result_dict, node_count = result
+            dataset.append(pdb_subgraphs)
+            results.append(result_dict)
+            node_counts.append(node_count)
 
     def collate_fn(batch):
         batch_graphs = []
@@ -264,9 +267,10 @@ def process_pdb_file(
         subgraph = convert_graph(subgraph)
         return anchor_node, subgraph
 
-    for anchor_node in threading_map(process_subgraph, anchor_nodes, num_threads):
-        anchor, subgraph = anchor_node
-        subgraph_dict[anchor] = subgraph
+    with ThreadPool(num_threads) as pool:
+        for anchor_node in pool.map(process_subgraph, anchor_nodes):
+            anchor, subgraph = anchor_node
+            subgraph_dict[anchor] = subgraph
     subgraph_dict = dict(sorted(subgraph_dict.items(), key=lambda x: x[0]))
 
     # cache graph
@@ -314,18 +318,19 @@ def pdb_conventer(
             cache_subgraph_dir,
         )
 
-    for result in tqdm(
-        iter_parallel_map(handle_pdf_file, pdb_files, num_processes),
-        total=len(pdb_files),
-    ):
-        pdb_subgraphs, result_dict, node_count = result
-        if pdb_subgraphs is None:
-            error_proteins.append(result_dict["name"])
-            error_messages.append(result_dict["error"])
-            continue
-        dataset.append(pdb_subgraphs)
-        results.append(result_dict)
-        node_counts.append(node_count)
+    with Pool(num_processes) as pool:
+        for result in tqdm(
+            pool.imap(handle_pdf_file, pdb_files),
+            total=len(pdb_files),
+        ):
+            pdb_subgraphs, result_dict, node_count = result
+            if pdb_subgraphs is None:
+                error_proteins.append(result_dict["name"])
+                error_messages.append(result_dict["error"])
+                continue
+            dataset.append(pdb_subgraphs)
+            results.append(result_dict)
+            node_counts.append(node_count)
 
     # save the error file
     if error_proteins:
