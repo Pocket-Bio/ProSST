@@ -318,19 +318,15 @@ def pdb_conventer(
             cache_subgraph_dir,
         )
 
-    with Pool(num_processes) as pool:
-        for result in tqdm(
-            pool.imap(handle_pdf_file, pdb_files),
-            total=len(pdb_files),
-        ):
-            pdb_subgraphs, result_dict, node_count = result
-            if pdb_subgraphs is None:
-                error_proteins.append(result_dict["name"])
-                error_messages.append(result_dict["error"])
-                continue
-            dataset.append(pdb_subgraphs)
-            results.append(result_dict)
-            node_counts.append(node_count)
+    for file in pdb_files:
+        pdb_subgraphs, result_dict, node_count = handle_pdf_file(file)
+        if pdb_subgraphs is None:
+            error_proteins.append(result_dict["name"])
+            error_messages.append(result_dict["error"])
+            continue
+        dataset.append(pdb_subgraphs)
+        results.append(result_dict)
+        node_counts.append(node_count)
 
     # save the error file
     if error_proteins:
